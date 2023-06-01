@@ -44,24 +44,6 @@ void get_input(t_data *data_struct, int argc, char **args)
 	data_struct->sleep_time = ft_atoi(args[4]);
 	if (argc == 6)
 		data_struct->meals_num = ft_atoi(args[5]);
-}
-
-void init_struct(t_data *data_struct, int argc, char **argv)
-{
-	int i;
-	int j;
-
-	i = 0;
-	get_input(data_struct, argc, argv);
-	data_struct->start_time = get_time();
-	data_struct->dead = 0;
-	data_struct->philo_status = malloc(sizeof(int*) * data_struct->philo_num);
-	while (i < data_struct->philo_num)
-	{
-		data_struct->philo_status[i] = malloc(sizeof(int) * 3);
-		j = 0;
-		while (j < 3)
-			data_struct->philo_status[i][j++] = 0;
-		i++;
-	}
+	else
+		data_struct->meals_num = 1000000;
 }
