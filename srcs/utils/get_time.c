@@ -1,6 +1,5 @@
 #include "../../includes/philo.h"
 
-
 u_int64_t	get_time(void)
 {
 	struct timeval	tv;
@@ -10,12 +9,19 @@ u_int64_t	get_time(void)
 	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
 }
 
-int	ft_usleep(useconds_t time)
+int ft_usleep(useconds_t time)
 {
-	u_int64_t	start;
-
+	u_int64_t start;
+	u_int64_t elapsed;
+	useconds_t remaining;
 	start = get_time();
-	while ((get_time() - start) < time)
-		usleep(time / 10);
-	return (0);
+	while (69)
+	{
+		elapsed = get_time() - start;
+		if (elapsed >= time)
+			break;
+		remaining = time - elapsed;
+		usleep(remaining);
+	}
+	return 0;
 }

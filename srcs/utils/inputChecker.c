@@ -8,9 +8,11 @@ void error(char *error_msg)
 
 int non_digit(char *s)
 {
+	if (*s == '+')
+		s++;
 	while (*s != '\0')
 	{
-		if (*s < 48 || *s > 57)
+		if (*s < 48|| *s > 57)
 			return (1);
 		s++;
 	}
@@ -18,7 +20,6 @@ int non_digit(char *s)
 }
 void check_input(int argc, char **args)
 {
-
 	int i;
 
 	i = 1;
@@ -35,15 +36,15 @@ void check_input(int argc, char **args)
 		i++;
 	}
 }
-void get_input(t_data *data_struct, int argc, char **args)
+void get_input(t_data *data, int argc, char **args)
 {
 	check_input(argc, args);
-	data_struct->philo_num = ft_atoi(args[1]);
-	data_struct->death_time = ft_atoi(args[2]);
-	data_struct->eat_time = ft_atoi(args[3]);
-	data_struct->sleep_time = ft_atoi(args[4]);
+	data->philo_num = ft_atoi(args[1]);
+	data->death_time = ft_atoi(args[2]);
+	data->eat_time = ft_atoi(args[3]);
+	data->sleep_time = ft_atoi(args[4]);
 	if (argc == 6)
-		data_struct->meals_num = ft_atoi(args[5]);
+		data->meals_num = ft_atoi(args[5]);
 	else
-		data_struct->meals_num = 1000000;
+		data->meals_num = -1;
 }
