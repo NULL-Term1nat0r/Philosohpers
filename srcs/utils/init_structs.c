@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 19:51:32 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/10 15:03:44 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/06/18 00:38:49 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void init_data_struct(t_data *data, int argc, char **argv)
 	data->philo = malloc(sizeof(t_philis) * data->philo_num);
 	data->forks = malloc(sizeof(pthread_mutex_t) *data->philo_num);
 	data->finished = 0;
-	pthread_mutex_init(&data->lock, NULL);
+	data->start_signal = 0;
 	pthread_mutex_init(&data->write, NULL);
-	pthread_mutex_init(&data->start_signal, NULL);
+	pthread_mutex_init(&data->meal, NULL);
 	while (i < data->philo_num)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
@@ -45,11 +45,11 @@ void init_struct_philo(t_data *data)
     	data->philo[i].eat_count = 0;
     	data->philo[i].id = i + 1;
 		data->philo[i].left_fork = &data->forks[i];
+		data->philo[i].kill_time = get_time() + data->death_time;
 		if (i != 0)
 			data->philo[i].right_fork = &data->forks[i - 1];
 		else
 			data->philo[i].right_fork = &data->forks[data->philo_num - 1];
-		data->philo[i].kill_time = get_time() + data->death_time;
 		i++;
 	}
 }

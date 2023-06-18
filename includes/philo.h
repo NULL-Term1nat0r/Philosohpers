@@ -32,7 +32,8 @@ typedef struct s_philis
 	int 			id;
 	int				eat_count;
 	int				finished_eating;
-	uint64_t 		kill_time;
+	u_int64_t 		kill_time;
+	u_int64_t		 start_time;
 	pthread_mutex_t finished;
 	pthread_mutex_t kill_check;
 	pthread_mutex_t	*right_fork;
@@ -52,10 +53,10 @@ typedef struct s_data
 	u_int64_t		sleep_time;
 	struct s_philis	*philo;
 
+	pthread_mutex_t meal;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	lock;
 	pthread_mutex_t	write;
-	pthread_mutex_t start_signal;
+	int				start_signal;
 }	t_data;
 
 //	utils
@@ -66,12 +67,21 @@ int	ft_strcmp(char *s1, char *s2);
 
 //	time
 u_int64_t	get_time(void);
-int ft_usleep(useconds_t time);
+int ft_usleep(useconds_t time, t_philis *philo);
 
 //	init
 void init_all_structs(t_data *data, int argc, char **argv);
 
 //	checker
+void death_check(t_philis *philo);
+void meal_check(t_philis *philo);
+
+// routine
+void *routine(void *philo_struct);
+
+// void death_check(t_data *data);
+// void meals_finished(t_data *data);
+
 
 //exit
 void	ft_exit(t_data *data);

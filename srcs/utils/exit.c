@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 20:46:40 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/10 18:36:52 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/06/18 03:12:40 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	clear_data_struct(t_data	*data)
 		i++;
 	}
 	pthread_mutex_destroy(&data->write);
-	pthread_mutex_destroy(&data->lock);
-	pthread_mutex_destroy(&data->start_signal);
+	pthread_mutex_destroy(&data->meal);
 	// catch_threads(data);
 	if (data->forks)
 		free(data->forks);

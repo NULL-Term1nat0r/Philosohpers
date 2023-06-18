@@ -9,19 +9,15 @@ u_int64_t	get_time(void)
 	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
 }
 
-int ft_usleep(useconds_t time)
+int ft_usleep(useconds_t time, t_philis *philo)
 {
-	u_int64_t start;
-	u_int64_t elapsed;
-	useconds_t remaining;
-	start = get_time();
-	while (69)
+	u_int64_t wait_time;
+	
+	wait_time = get_time() + time;
+	while (get_time () <= wait_time)
 	{
-		elapsed = get_time() - start;
-		if (elapsed >= time)
-			break;
-		remaining = time - elapsed;
-		usleep(remaining);
+		death_check(philo);
+		usleep(200);
 	}
 	return 0;
 }
