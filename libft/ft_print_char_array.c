@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_char_array.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: estruckm <estruckm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 13:50:10 by estruckm          #+#    #+#             */
-/*   Updated: 2023/04/17 13:50:10 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/06/19 17:46:47 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "libft.h"
 
-void ft_print_char_array(char **array)
+void	ft_print_char_array(char **array)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;

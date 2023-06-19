@@ -1,26 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inputChecker.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/19 15:25:31 by estruckm          #+#    #+#             */
+/*   Updated: 2023/06/19 15:26:15 by estruckm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/philo.h"
 
-void error(char *error_msg)
+void	error(char *error_msg)
 {
 	printf("%s\n", error_msg);
 	exit(1);
 }
 
-int non_digit(char *s)
+int	non_digit(char *s)
 {
+	if (s[0] == '+' && s[1] == '\0')
+		return (1);
 	if (*s == '+')
 		s++;
 	while (*s != '\0')
 	{
-		if (*s < 48|| *s > 57)
+		if (*s < 48 || *s > 57)
 			return (1);
 		s++;
 	}
 	return (0);
 }
-void check_input(int argc, char **args)
+
+void	check_input(int argc, char **args)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (argc < 5)
@@ -36,7 +51,8 @@ void check_input(int argc, char **args)
 		i++;
 	}
 }
-void get_input(t_data *data, int argc, char **args)
+
+void	get_input(t_data *data, int argc, char **args)
 {
 	check_input(argc, args);
 	data->philo_num = ft_atoi(args[1]);
