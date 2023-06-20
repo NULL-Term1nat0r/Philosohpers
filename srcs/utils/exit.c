@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 20:46:40 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/19 23:52:56 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:39:55 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	catch_threads(t_data *data)
 	i = 0;
 	while (i < data->philo_num)
 	{
-		pthread_detach(data->tid[i]);
+		// pthread_detach(data->tid[i]);
 		pthread_join(data->tid[i], NULL);
 		i++;
 	}

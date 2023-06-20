@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:10:07 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/20 00:32:23 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:26:48 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,14 @@ void	*routine(void *philo_struct)
 	philo->start_time = get_time(philo->data);
 	if (philo->id % 2 == 0)
 		usleep(2000);
+	pthread_mutex_lock(&philo->data->dead);
 	while (philo->data->dead_check != 1)
 	{
+		pthread_mutex_unlock(&philo->data->dead);
 		life_circle(philo);
+		pthread_mutex_lock(&philo->data->dead);
 	}
+	pthread_mutex_unlock(&philo->data->dead);
 	return ((void *)0);
 }
 
