@@ -1,0 +1,38 @@
+0 1 [33mhas taken a fork[0m
+5 1 [33mhas taken a fork[0m
+5 1 [32mis eating[0m
+0 3 [33mhas taken a fork[0m
+2 3 [33mhas taken a fork[0m
+2 3 [32mis eating[0m
+207 1 [34mis sleeping[0m
+202 4 [33mhas taken a fork[0m
+204 2 [33mhas taken a fork[0m
+204 2 [33mhas taken a fork[0m
+204 2 [32mis eating[0m
+204 3 [34mis sleeping[0m
+204 4 [33mhas taken a fork[0m
+204 4 [32mis eating[0m
+408 1 [31mis thinking[0m
+405 2 [34mis sleeping[0m
+411 1 [33mhas taken a fork[0m
+405 4 [34mis sleeping[0m
+411 1 [33mhas taken a fork[0m
+411 1 [32mis eating[0m
+405 3 [31mis thinking[0m
+405 3 [33mhas taken a fork[0m
+405 3 [33mhas taken a fork[0m
+405 3 [32mis eating[0m
+606 4 [31mis thinking[0m
+606 2 [31mis thinking[0m
+606 4 [33mhas taken a fork[0m
+612 1 [34mis sleeping[0m
+606 2 [33mhas taken a fork[0m
+606 2 [33mhas taken a fork[0m
+606 2 [32mis eating[0m
+606 4 [33mhas taken a fork[0m
+606 4 [32mis eating[0m
+607 3 [34mis sleeping[0m
+807 2 [34mis sleeping[0m
+813 1 [31mis thinking[0m
+813 1 [33mhas taken a fork[0m
+807 4 all philosophers have eaten at least one time

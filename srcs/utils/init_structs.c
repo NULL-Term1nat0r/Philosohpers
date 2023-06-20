@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 19:51:32 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/19 15:39:58 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:12:24 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ void	init_data_struct(t_data *data, int argc, char **argv)
 	data->philo = malloc(sizeof(t_philis) * data->philo_num);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
 	data->finished = 0;
+	data->dead_check = 0;
 	pthread_mutex_init(&data->write, NULL);
 	pthread_mutex_init(&data->meal, NULL);
 	pthread_mutex_init(&data->start_signal, NULL);
+	pthread_mutex_init(&data->dead, NULL);
 	while (i < data->philo_num)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);

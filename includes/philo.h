@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:40:52 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/19 17:44:53 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:46:27 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_data
 	int				philo_num;
 	int				meals_num;
 	int				finished;
+	int				dead_check;
 	u_int64_t		death_time;
 	u_int64_t		eat_time;
 	u_int64_t		sleep_time;
@@ -64,6 +65,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write;
 	pthread_mutex_t	start_signal;
+	pthread_mutex_t	dead;
 }	t_data;
 
 //	utils
@@ -91,8 +93,7 @@ void		ft_exit(t_data *data);
 //	actions
 void		output_error(char *str, t_data *data);
 void		output_message(char *str, t_philis *philo, char *colour);
-void		output_dying(char *str, t_philis *philo);
-void		output_finished(char *str, t_philis *philo);
+void		output_message_exit(char *str, t_philis *philo);
 void		life_circle(t_philis *philo);
 
 //	threads
