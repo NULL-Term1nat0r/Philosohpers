@@ -12,98 +12,6 @@
 
 #include "../includes/philo.h"
 
-void	death_check(t_philis *philo)
-{
-	pthread_mutex_lock(&philo->kill_check);
-	if (philo->kill_time <= get_time(philo->data))
-	{
-		philo->dead_status = 1;
-		output_message_exit(DYING, philo);
-	}
-	pthread_mutex_lock(&philo->kill_check);
-}
-//
-//void	meal_check(t_philis *philo)
-//{
-//	philo->eat_count++;
-//	if (philo->eat_count == philo->data->meals_num)
-//	{
-//		pthread_mutex_lock(&philo->data->meal);
-//		philo->data->finished++;
-//		if (philo->data->finished == philo->data->philo_num)
-//			output_message_exit(FINISHED, philo);
-//		pthread_mutex_unlock(&philo->data->meal);
-//	}
-//}
-
-int death_check_test(t_philis *philo)
-{
-	int i;
-
-	i = 0;
-	while (i < philo->data->philo_num)
-	{
-		pthread_mutex_lock(&philo->data->philo[i].kill_check);
-		if (philo->data->philo[i].dead_status == 1)
-			return (1);
-		pthread_mutex_unlock(&philo->data->philo[i].kill_check);
-		i++;
-	}
-	return (0);
-}
-
-int death_check_main(t_data *data)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (i < data->philo_num)
-	{
-		pthread_mutex_lock(&data->philo[i].kill_check);
-		if (data->philo[i].kill_time <= get_time(data))
-		{
-			output_message_exit(DYING, &data->philo[i]);
-			while (j < data->philo_num)
-			{
-				if (j != i)
-					pthread_mutex_lock(&data->philo[j].kill_check);
-				data->philo[i].dead_status = 1;
-				pthread_mutex_unlock(&data->philo[j].kill_check);
-				j++;
-			}
-			return (1);
-		}
-		pthread_mutex_unlock(&data->philo[i].kill_check);
-		i++;
-	}
-	return (0);
-}
-
-int meal_check_main(t_data *data)
-{
-	int i;
-	int number_check;
-
-	i = 0;
-	number_check = 0;
-	while (i < data->philo_num)
-	{
-		pthread_mutex_lock(&data->philo[i].finished);
-		if (data->philo[i].eat_count == data->meals_num)
-			number_check++;
-		pthread_mutex_unlock(&data->philo[i].finished);
-		i++;
-	}
-	if (number_check == data->philo_num)
-	{
-		output_message_finished(FINISHED, data);
-		return (1);
-	}
-	return (0);
-}
-
 void	case_one(t_data *data)
 {
 	printf("0 1 has taken a fork\n");
@@ -121,7 +29,11 @@ int	main(int argc, char **argv)
 		case_one(&data);
 	else
 	{
-		thread_init(&data);
+		if (thread_init(&data) != data.philo_num + 3)
+		{
+			printf("thread_creation failed\n");
+			return (0);
+		}
 		pthread_mutex_lock(&data.dead);
 		while (data.dead_check == 0)
 		{
@@ -131,6 +43,6 @@ int	main(int argc, char **argv)
 		pthread_mutex_unlock(&data.dead);
 	}
 	if (ft_atoi(argv[1]) != 1)
-		ft_exit(&data);
+		ft_exit(&data, data.philo_num);
 	return (0);
 }

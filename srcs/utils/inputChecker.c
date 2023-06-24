@@ -12,7 +12,7 @@
 
 #include "../../includes/philo.h"
 
-int error(char *error_msg)
+int	error(char *error_msg)
 {
 	printf("%s\n", error_msg);
 	return (1);
@@ -52,7 +52,7 @@ int	check_input(int argc, char **args)
 			return (error("invalid character"));
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
 int	get_input(t_data *data, int argc, char **args)

@@ -20,7 +20,6 @@ void	init_data_struct(t_data *data)
 	data->tid = malloc(sizeof(pthread_t) * data->philo_num);
 	data->philo = malloc(sizeof(t_philis) * data->philo_num);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
-//	data->finished = 0;
 	data->dead_check = 0;
 	data->write_check = 0;
 	pthread_mutex_init(&data->write, NULL);
@@ -42,6 +41,7 @@ void	init_struct_philo(t_data *data)
 	while (i < data->philo_num)
 	{
 		pthread_mutex_init(&data->philo[i].kill_check, NULL);
+		pthread_mutex_init(&data->philo[i].time, NULL);
 		pthread_mutex_init(&data->philo[i].finished, NULL);
 		data->philo[i].data = data;
 		data->philo[i].dead_status = 0;

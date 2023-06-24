@@ -19,8 +19,8 @@ u_int64_t	get_time(t_data *data)
 {
 	struct timeval	tv;
 
-	if (gettimeofday(&tv, NULL))
-		output_error("gettimeoftheday function has failed\n", data);
+	(void)data;
+	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
 }
 
@@ -29,11 +29,7 @@ int	ft_usleep(useconds_t time, t_philis *philo)
 	u_int64_t	wait_time;
 
 	wait_time = get_time(philo->data) + time;
-//	usleep(time / 2);
 	while (get_time (philo->data) <= wait_time)
-	{
-//		death_check(philo);
 		usleep(200);
-	}
 	return (0);
 }

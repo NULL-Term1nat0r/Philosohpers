@@ -22,7 +22,7 @@ int	ft_atoi(const char *str)
 	temp = 0;
 	while (*str == ' ' || *str == '\t' || *str == '\n'
 		|| *str == '\f' || *str == '\v' || *str == '\r')
-			str++;
+		str++;
 	if ((*str >= 'A' && *str <= 'Z') || (*str >= 'a' \
 	&& *str <= 'z') || *str == '\e')
 		return (0);

@@ -42,6 +42,8 @@ typedef struct s_philis
 	int				finished_eating;
 	int				dead_status;
 	u_int64_t		kill_time;
+	u_int64_t		start_time;
+	pthread_mutex_t	time;
 	pthread_mutex_t	finished;
 	pthread_mutex_t	kill_check;
 	pthread_mutex_t	*right_fork;
@@ -51,12 +53,11 @@ typedef struct s_philis
 typedef struct s_data
 {
 	pthread_t		*tid;
-	pthread_t 		death_checker;
-	pthread_t 		meal_checker;
+	pthread_t		death_checker;
+	pthread_t		meal_checker;
 	int				philo_num;
 	int				meals_num;
-//	int				finished;
-	int 			write_check;
+	int				write_check;
 	int				dead_check;
 	u_int64_t		start_time;
 	u_int64_t		death_time;
@@ -87,23 +88,23 @@ int			init_all_structs(t_data *data, int argc, char **argv);
 void		death_check(t_philis *philo);
 void		meal_check(t_philis *philo);
 
-int death_check_test(t_philis *philo);
+//helper routine functions
+void		death_execution(t_data *data, int i);
+void		meal_execution(t_data *data);
+int			eat_counter(t_data *data);
 
 // routine
 void		*routine(void *philo_struct);
 
 //exit
-void		ft_exit(t_data *data);
+void		ft_exit(t_data *data, int i);
 
 //	actions
-void		output_error(char *str, t_data *data);
 void		output_message(char *str, t_philis *philo, char *colour);
-void		output_message_exit(char *str, t_philis *philo);
-void	output_message_finished(char *str, t_data *data);
 void		life_circle(t_philis *philo);
 
 //	threads
 int			thread_init(t_data *data);
-void		catch_threads(t_data *struct_data);
+void		catch_threads(t_data *struct_data, int i);
 
 #endif

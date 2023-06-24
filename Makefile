@@ -28,6 +28,7 @@ SRC_FILES = actions.c \
 			init_structs.c \
 			inputChecker.c \
 			threads.c \
+			checker_routine.c \
 			main.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

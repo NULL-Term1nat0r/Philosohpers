@@ -22,6 +22,8 @@ void	clear_data_struct(t_data	*data)
 		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&data->start_signal);
+	pthread_mutex_destroy(&data->dead);
 	pthread_mutex_destroy(&data->write);
 	pthread_mutex_destroy(&data->meal);
 	if (data->forks)
@@ -30,42 +32,36 @@ void	clear_data_struct(t_data	*data)
 		free(data->philo);
 }
 
-void	clear_philo_struct(t_philis *philo)
+void	clear_philo_struct(t_philis *philo, int i)
 {
-	int	i;
-
-	i = 0;
 	while (i < philo->data->philo_num)
 	{
+		pthread_mutex_destroy(&philo[i].time);
 		pthread_mutex_destroy(&philo[i].finished);
 		pthread_mutex_destroy(&philo[i].kill_check);
 		i++;
 	}
 }
 
-void	catch_threads(t_data *data)
+void	catch_threads(t_data *data, int i)
 {
-	int	i;
-
-	i = 0;
-
-	pthread_join(data->death_checker, NULL);
-	pthread_join(data->meal_checker, NULL);
+	if (i == data->philo_num + 2)
+		pthread_join(data->death_checker, NULL);
+	if (i == data->philo_num + 3)
+		pthread_join(data->meal_checker, NULL);
 	while (i < data->philo_num)
 	{
-//		pthread_detach(data->tid[i]);
 		pthread_join(data->tid[i], NULL);
 		i++;
 	}
 }
 
-void	ft_exit(t_data *data)
+void	ft_exit(t_data *data, int i)
 {
 	pthread_mutex_unlock(&data->write);
-	catch_threads(data);
-	clear_philo_struct(data->philo);
+	catch_threads(data, i);
+	clear_philo_struct(data->philo, i);
 	clear_data_struct(data);
-	// catch_threads(data);
 	if (data->tid)
 		free(data->tid);
 }
