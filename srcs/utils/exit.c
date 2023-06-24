@@ -48,9 +48,12 @@ void	catch_threads(t_data *data)
 	int	i;
 
 	i = 0;
+
+	pthread_join(data->death_checker, NULL);
+	pthread_join(data->meal_checker, NULL);
 	while (i < data->philo_num)
 	{
-		// pthread_detach(data->tid[i]);
+//		pthread_detach(data->tid[i]);
 		pthread_join(data->tid[i], NULL);
 		i++;
 	}
@@ -58,6 +61,7 @@ void	catch_threads(t_data *data)
 
 void	ft_exit(t_data *data)
 {
+	pthread_mutex_unlock(&data->write);
 	catch_threads(data);
 	clear_philo_struct(data->philo);
 	clear_data_struct(data);

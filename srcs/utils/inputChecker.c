@@ -12,10 +12,10 @@
 
 #include "../../includes/philo.h"
 
-void	error(char *error_msg)
+int error(char *error_msg)
 {
 	printf("%s\n", error_msg);
-	exit(1);
+	return (1);
 }
 
 int	non_digit(char *s)
@@ -33,34 +33,42 @@ int	non_digit(char *s)
 	return (0);
 }
 
-void	check_input(int argc, char **args)
+int	check_input(int argc, char **args)
 {
 	int	i;
 
 	i = 1;
 	if (argc < 5)
-		error("too less arguments");
+		return (error("too less arguments"));
+	if (argc > 6)
+		return (error("too many arguemnts"));
 	if (ft_atoi(args[i]) <= 0)
-		error("invalid number of philosophers");
+		return (error("invalid number of philosophers"));
 	while (args[i])
 	{
 		if (ft_atoi(args[i]) < 0)
-			error("invalid numbers, number must be over 0");
+			return (error("invalid numbers, number must be over 0"));
 		if (non_digit(args[i]))
-			error("invalid character");
+			return (error("invalid character"));
 		i++;
 	}
+	return 0;
 }
 
-void	get_input(t_data *data, int argc, char **args)
+int	get_input(t_data *data, int argc, char **args)
 {
-	check_input(argc, args);
-	data->philo_num = ft_atoi(args[1]);
-	data->death_time = ft_atoi(args[2]);
-	data->eat_time = ft_atoi(args[3]);
-	data->sleep_time = ft_atoi(args[4]);
-	if (argc == 6)
-		data->meals_num = ft_atoi(args[5]);
+	if (check_input(argc, args) == 0)
+	{
+		data->philo_num = ft_atoi(args[1]);
+		data->death_time = ft_atoi(args[2]);
+		data->eat_time = ft_atoi(args[3]);
+		data->sleep_time = ft_atoi(args[4]);
+		if (argc == 6)
+			data->meals_num = ft_atoi(args[5]);
+		else
+			data->meals_num = -1;
+		return (0);
+	}
 	else
-		data->meals_num = -1;
+		return (1);
 }

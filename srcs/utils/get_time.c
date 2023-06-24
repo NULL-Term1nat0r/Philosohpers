@@ -29,9 +29,10 @@ int	ft_usleep(useconds_t time, t_philis *philo)
 	u_int64_t	wait_time;
 
 	wait_time = get_time(philo->data) + time;
+//	usleep(time / 2);
 	while (get_time (philo->data) <= wait_time)
 	{
-		death_check(philo);
+//		death_check(philo);
 		usleep(200);
 	}
 	return (0);
