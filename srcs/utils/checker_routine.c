@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker_routine.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: estruckm <estruckm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 21:56:24 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/24 21:56:32 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:39:12 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	death_execution(t_data *data, int i)
 {
 	u_int64_t	actual_time;
 
-	pthread_mutex_unlock(&data->philo[i].kill_check);
 	pthread_mutex_lock(&data->write);
 	if (data->write_check == 0)
 	{
@@ -63,7 +62,8 @@ void	death_execution(t_data *data, int i)
 	data->write_check = 1;
 	pthread_mutex_unlock(&data->write);
 	pthread_mutex_lock(&data->dead);
-	actual_time = get_time(data) - data->start_time;
+	// actual_time = get_time(data) - data->start_time;
 	data->dead_check = 1;
 	pthread_mutex_unlock(&data->dead);
+	pthread_mutex_unlock(&data->philo[i].kill_check);
 }

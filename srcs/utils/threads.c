@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:10:07 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/20 15:26:48 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:17:59 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	*meal_checker(void *data_struct)
 	pthread_mutex_lock(&data->dead);
 	while (data->dead_check == 0)
 	{
+		pthread_mutex_unlock(&data->dead);
 		if (eat_counter(data) == 1)
 			return ((void *)0);
 		usleep(20);
@@ -47,6 +48,7 @@ void	*death_checker(void *data_struct)
 			if (data->philo[i].kill_time < get_time(data))
 			{
 				death_execution(data, i);
+				pthread_mutex_unlock(&data->philo[i].kill_check);
 				return ((void *)0);
 			}
 			pthread_mutex_unlock(&data->philo[i].kill_check);
@@ -78,7 +80,6 @@ void	*routine(void *philo_struct)
 		life_circle(philo);
 		pthread_mutex_lock(&philo->data->dead);
 	}
-	pthread_mutex_unlock(&philo->data->dead);
 	return ((void *)0);
 }
 

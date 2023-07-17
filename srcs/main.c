@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:22:41 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/19 23:47:56 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:14:30 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char **argv)
 		{
 			pthread_mutex_unlock(&data.dead);
 			usleep(200);
+			pthread_mutex_lock(&data.dead);
 		}
 		pthread_mutex_unlock(&data.dead);
 	}
