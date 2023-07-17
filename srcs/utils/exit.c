@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 20:46:40 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/20 15:39:55 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:06:00 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	clear_philo_struct(t_philis *philo, int i)
 
 void	catch_threads(t_data *data, int i)
 {
-	if (i == data->philo_num + 2)
+	if (i == data->philo_num + 2 && i == data->philo_num + 3)
 		pthread_join(data->death_checker, NULL);
 	if (i == data->philo_num + 3)
 		pthread_join(data->meal_checker, NULL);
