@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 21:56:24 by estruckm          #+#    #+#             */
-/*   Updated: 2023/07/17 14:39:12 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:24:59 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,4 @@ void	death_execution(t_data *data, int i)
 	// actual_time = get_time(data) - data->start_time;
 	data->dead_check = 1;
 	pthread_mutex_unlock(&data->dead);
-	pthread_mutex_unlock(&data->philo[i].kill_check);
 }

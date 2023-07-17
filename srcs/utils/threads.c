@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:10:07 by estruckm          #+#    #+#             */
-/*   Updated: 2023/07/17 15:17:59 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:55:47 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	*routine(void *philo_struct)
 		life_circle(philo);
 		pthread_mutex_lock(&philo->data->dead);
 	}
+	pthread_mutex_unlock(&philo->data->dead);
 	return ((void *)0);
 }
 
@@ -94,20 +95,20 @@ int	thread_init(t_data *data)
 		if (pthread_create(&data->tid[i], NULL, &routine, &data->philo[i]))
 		{
 			ft_exit(data, i);
-			return (i);
+			return (1);
 		}
 		i++;
 	}
 	pthread_mutex_unlock(&data->start_signal);
 	if (pthread_create(&data->death_checker, NULL, &death_checker, data))
 	{
-		ft_exit(data, i + 1);
-		return (i + 1);
+		ft_exit(data, i);
+		return (1);
 	}
 	if (pthread_create(&data->meal_checker, NULL, &meal_checker, data))
 	{
-		ft_exit(data, i + 2);
-		return (i + 2);
+		ft_exit(data, i + 1);
+		return (1);
 	}
-	return (i + 3);
+	return (0);
 }

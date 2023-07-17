@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:22:41 by estruckm          #+#    #+#             */
-/*   Updated: 2023/07/17 15:14:30 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:58:44 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 		case_one(&data);
 	else
 	{
-		if (thread_init(&data) != data.philo_num + 3)
+		if (thread_init(&data) != 0)
 		{
 			printf("thread_creation failed\n");
 			return (0);
@@ -44,6 +44,6 @@ int	main(int argc, char **argv)
 		pthread_mutex_unlock(&data.dead);
 	}
 	if (ft_atoi(argv[1]) != 1)
-		ft_exit(&data, data.philo_num);
+		ft_exit(&data, data.philo_num + 2);
 	return (0);
 }
