@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:10:07 by estruckm          #+#    #+#             */
-/*   Updated: 2023/07/17 15:55:47 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/07/24 13:54:25 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	*death_checker(void *data_struct)
 		while (i < data->philo_num)
 		{
 			pthread_mutex_lock(&data->philo[i].kill_check);
-			if (data->philo[i].kill_time < get_time(data))
+			if (data->philo[i].kill_time < get_time())
 			{
 				death_execution(data, i);
 				pthread_mutex_unlock(&data->philo[i].kill_check);
@@ -64,15 +64,10 @@ void	*routine(void *philo_struct)
 
 	philo = (t_philis *)philo_struct;
 	pthread_mutex_lock(&philo->kill_check);
-	philo->kill_time = get_time(philo->data) + philo->data->death_time;
+	philo->kill_time = get_time() + philo->data->death_time;
 	pthread_mutex_unlock(&philo->kill_check);
-	pthread_mutex_lock(&philo->time);
-	philo->start_time = get_time(philo->data);
-	pthread_mutex_unlock(&philo->time);
-	pthread_mutex_lock(&philo->data->start_signal);
-	pthread_mutex_unlock(&philo->data->start_signal);
 	if (philo->id % 2 == 0)
-		ft_usleep(philo->data->eat_time / 2, philo);
+		ft_usleep(philo->data->eat_time / 2);
 	pthread_mutex_lock(&philo->data->dead);
 	while (philo->data->dead_check == 0)
 	{
@@ -90,25 +85,18 @@ int	thread_init(t_data *data)
 
 	i = 0;
 	pthread_mutex_lock(&data->start_signal);
+	data->start_time = get_time();
 	while (i < data->philo_num)
 	{
 		if (pthread_create(&data->tid[i], NULL, &routine, &data->philo[i]))
-		{
-			ft_exit(data, i);
-			return (1);
-		}
+			return (ft_exit(data, i), 1);
 		i++;
 	}
 	pthread_mutex_unlock(&data->start_signal);
 	if (pthread_create(&data->death_checker, NULL, &death_checker, data))
-	{
-		ft_exit(data, i);
-		return (1);
-	}
-	if (pthread_create(&data->meal_checker, NULL, &meal_checker, data))
-	{
-		ft_exit(data, i + 1);
-		return (1);
-	}
+		return (ft_exit(data, i), 1);
+	if (data->meals_num != -1)
+		if (pthread_create(&data->meal_checker, NULL, &meal_checker, data))
+			return (ft_exit(data, i + 1), 1);
 	return (0);
 }

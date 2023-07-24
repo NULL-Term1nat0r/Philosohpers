@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:40:52 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/19 22:46:27 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/07/24 14:26:29 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ typedef struct s_philis
 	int				finished_eating;
 	int				dead_status;
 	u_int64_t		kill_time;
-	u_int64_t		start_time;
-	pthread_mutex_t	time;
 	pthread_mutex_t	finished;
 	pthread_mutex_t	kill_check;
 	pthread_mutex_t	*right_fork;
@@ -73,13 +71,13 @@ typedef struct s_data
 }	t_data;
 
 //	utils
-int			ft_atoi(char *argv);
+int			ft_atoi(const char *str);
 int			get_input(t_data *data_struct, int argc, char **args);
 // int	ft_strcmp(char *s1, char *s2);
 
 //	time
-u_int64_t	get_time(t_data *data);
-int			ft_usleep(useconds_t time, t_philis *philo);
+u_int64_t	get_time(void);
+int			ft_usleep(useconds_t time);
 
 //	init
 int			init_all_structs(t_data *data, int argc, char **argv);

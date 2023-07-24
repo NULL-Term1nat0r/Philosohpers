@@ -4,7 +4,8 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -g
+#-fsanitize=thread
 Y = "\033[33m"
 R = "\033[31m"
 G = "\033[32m"
@@ -31,11 +32,7 @@ SRC_FILES = actions.c \
 			main.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
-all: libraries $(NAME)
-
-libraries:
-	@echo $(B)
-	make -C ./libft
+all:  $(NAME)
 
 
 $(NAME): $(OBJ_FILES)
@@ -44,16 +41,14 @@ $(NAME): $(OBJ_FILES)
 	@echo $(G)Finished [$(OBJ_FILES)]$(X)
 	@echo
 	@echo $(Y)Compiling [$(NAME)]...$(X)
-	@$(CC) $(CFLAGS) $(OBJ_FILES) ./libft/libft.a -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ_FILES)  -o $(NAME)
 	@echo $(G)Finished [$(NAME)]$(X)
 
 clean:
-	@make -C libft clean
 	@rm -f $(OBJ_FILES)
 	@echo $(R)Removed [$(OBJ_FILES)]$(X)
 
 fclean: clean
-	@make -C libft fclean
 	@rm -f $(NAME)
 	@echo $(R)Removed [$(NAME)]$(X)
 

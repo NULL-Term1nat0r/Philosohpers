@@ -6,7 +6,7 @@
 /*   By: estruckm <estruckm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 19:51:32 by estruckm          #+#    #+#             */
-/*   Updated: 2023/06/19 22:12:24 by estruckm         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:53:40 by estruckm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	init_struct_philo(t_data *data)
 	while (i < data->philo_num)
 	{
 		pthread_mutex_init(&data->philo[i].kill_check, NULL);
-		pthread_mutex_init(&data->philo[i].time, NULL);
 		pthread_mutex_init(&data->philo[i].finished, NULL);
 		data->philo[i].data = data;
 		data->philo[i].dead_status = 0;
